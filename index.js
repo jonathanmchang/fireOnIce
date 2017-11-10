@@ -11,6 +11,12 @@ let shotDataAway = [];
 
 let gameId = 2017020001;
 
+let convertCoordinates = (coordinates) => {
+    coordinates.x = coordinates.x + 99
+    coordinates.y = (coordinates.y * -1) + 42
+    return coordinates
+}
+
 let getAllShots = (gameId) => {
     const options = {
       uri: `http://statsapi.web.nhl.com/api/v1/game/${gameId}/feed/live`,
@@ -45,34 +51,37 @@ let getAllShots = (gameId) => {
     for(let i = 0; i < resArr.length; i++) {
         if(resArr[i].result.event === 'Shot') {
             if(resArr[i].team.id === gameData.home.id) {
+                // console.log(resArr[i])
                 let period = resArr[i].about.period
+                let periodTime = resArr[i].about.periodTime
                 let teamId = resArr[i].team.id
                 let team = resArr[i].team.name
                 let player = resArr[i].players[0].player.fullName
                 let playerId = resArr[i].players[0].player.id 
-                let coordinates = resArr[i].coordinates
+                let coordinates = convertCoordinates(resArr[i].coordinates)
 
-                shotDataHome.push({ period, teamId, team, player, playerId, coordinates })
+                shotDataHome.push({ period, periodTime, teamId, team, player, playerId, coordinates })
             } else {
                 let period = resArr[i].about.period
+                let periodTime = resArr[i].about.periodTime                
                 let teamId = resArr[i].team.id
                 let team = resArr[i].team.name
                 let player = resArr[i].players[0].player.fullName
                 let playerId = resArr[i].players[0].player.id 
-                let coordinates = resArr[i].coordinates
+                let coordinates = convertCoordinates(resArr[i].coordinates)
 
-                shotDataAway.push({ period, teamId, team, player, playerId, coordinates })
+                shotDataAway.push({ period, periodTime, teamId, team, player, playerId, coordinates })
             }
-            console.log('***********')
         }
         
     }
-
-return shotData
+    
+    return shotData
 })
 .then(shotData => {
-  console.log('***********home', shotDataHome)
-  console.log('***********away', shotDataAway)
+    console.log('***********')
+    console.log('***********home', shotDataHome)
+    // console.log('***********away', shotDataAway)
   
 })
 }
