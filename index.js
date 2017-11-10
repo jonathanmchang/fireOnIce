@@ -29,24 +29,51 @@ let getAllShots = (gameId) => {
     })
     .then(res =>  {
     resArr = res.liveData.plays.allPlays
-    // console.log(res.liveData.plays.allPlays)
     for(let i = 0; i < resArr.length; i++) {
-      if(resArr[i].result.event === 'Hit') {
-      // console.log(resArr[i].players[0])
-      let period = resArr[i].about.period
-      let teamId = resArr[i].team.id
-      let team = resArr[i].team.name
-      let player = resArr[i].players[0].player.fullName
-      let playerId = resArr[i].players[0].player.id 
-      let coordinates = resArr[i].coordinates
-        
-      shotData.push({ period, teamId, team, player, playerId, coordinates })
+        if(resArr[i].result.event === 'Shot') {
+        // console.log(resArr[i].players[0])
+        let period = resArr[i].about.period
+        let teamId = resArr[i].team.id
+        let team = resArr[i].team.name
+        let player = resArr[i].players[0].player.fullName
+        let playerId = resArr[i].players[0].player.id 
+        let coordinates = resArr[i].coordinates
+            
+        shotData.push({ period, teamId, team, player, playerId, coordinates })
+        }
     }
-  }
-  return shotData
+    for(let i = 0; i < resArr.length; i++) {
+        if(resArr[i].result.event === 'Shot') {
+            if(resArr[i].team.id === gameData.home.id) {
+                let period = resArr[i].about.period
+                let teamId = resArr[i].team.id
+                let team = resArr[i].team.name
+                let player = resArr[i].players[0].player.fullName
+                let playerId = resArr[i].players[0].player.id 
+                let coordinates = resArr[i].coordinates
+
+                shotDataHome.push({ period, teamId, team, player, playerId, coordinates })
+            } else {
+                let period = resArr[i].about.period
+                let teamId = resArr[i].team.id
+                let team = resArr[i].team.name
+                let player = resArr[i].players[0].player.fullName
+                let playerId = resArr[i].players[0].player.id 
+                let coordinates = resArr[i].coordinates
+
+                shotDataAway.push({ period, teamId, team, player, playerId, coordinates })
+            }
+            console.log('***********')
+        }
+        
+    }
+
+return shotData
 })
 .then(shotData => {
-  console.log('***********')
+  console.log('***********home', shotDataHome)
+  console.log('***********away', shotDataAway)
+  
 })
 }
 
