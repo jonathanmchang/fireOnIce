@@ -50,26 +50,18 @@ let getAllShots = (gameId) => {
     }
     for(let i = 0; i < resArr.length; i++) {
         if(resArr[i].result.event === 'Shot') {
-            if(resArr[i].team.id === gameData.home.id) {
-                // console.log(resArr[i])
-                let period = resArr[i].about.period
-                let periodTime = resArr[i].about.periodTime
-                let teamId = resArr[i].team.id
-                let team = resArr[i].team.name
-                let player = resArr[i].players[0].player.fullName
-                let playerId = resArr[i].players[0].player.id 
-                let coordinates = convertCoordinates(resArr[i].coordinates)
+            console.log(resArr[i])
+            let period = resArr[i].about.period
+            let periodTime = resArr[i].about.periodTime
+            let teamId = resArr[i].team.id
+            let team = resArr[i].team.name
+            let player = resArr[i].players[0].player.fullName
+            let playerId = resArr[i].players[0].player.id 
+            let coordinates = convertCoordinates(resArr[i].coordinates)
 
+            if(resArr[i].team.id === gameData.home.id) {
                 shotDataHome.push({ period, periodTime, teamId, team, player, playerId, coordinates })
             } else {
-                let period = resArr[i].about.period
-                let periodTime = resArr[i].about.periodTime                
-                let teamId = resArr[i].team.id
-                let team = resArr[i].team.name
-                let player = resArr[i].players[0].player.fullName
-                let playerId = resArr[i].players[0].player.id 
-                let coordinates = convertCoordinates(resArr[i].coordinates)
-
                 shotDataAway.push({ period, periodTime, teamId, team, player, playerId, coordinates })
             }
         }
@@ -80,7 +72,7 @@ let getAllShots = (gameId) => {
 })
 .then(shotData => {
     console.log('***********')
-    console.log('***********home', shotDataHome)
+    // console.log('***********home', shotDataHome)
     // console.log('***********away', shotDataAway)
   
 })
