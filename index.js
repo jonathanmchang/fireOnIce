@@ -4,14 +4,19 @@ const express = require('express');
 const app = express();
 // Ranger game: 2017020001
 
-let shotData = [];
 let gameData = {home:{},away:{}};
 let shotDataHome = [];
 let shotDataAway = [];
 
 let gameId = 2017020001;
 
-let convertCoordinates = (coordinates) => {
+let convertCoordinates = (coordinates, period) => {
+    // Inverts the plot points on both axes to have all of Home teams shots on lefts side and all Away teams shots on right side.
+    if (period === 2) {
+        coordinates.x = coordinates.x * -1
+        coordinates.y = coordinates.y * -1
+    }
+    // Shifts coordinates fro use in D3 which moves to the righ and down, positively starting at zero
     coordinates.x = coordinates.x + 99
     coordinates.y = (coordinates.y * -1) + 42
     return coordinates
@@ -34,31 +39,20 @@ let getAllShots = (gameId) => {
         return res
     })
     .then(res =>  {
-    resArr = res.liveData.plays.allPlays
     for(let i = 0; i < resArr.length; i++) {
         if(resArr[i].result.event === 'Shot') {
-        // console.log(resArr[i].players[0])
-        let period = resArr[i].about.period
-        let teamId = resArr[i].team.id
-        let team = resArr[i].team.name
-        let player = resArr[i].players[0].player.fullName
-        let playerId = resArr[i].players[0].player.id 
-        let coordinates = resArr[i].coordinates
-            
-        shotData.push({ period, teamId, team, player, playerId, coordinates })
-        }
-    }
-    for(let i = 0; i < resArr.length; i++) {
-        if(resArr[i].result.event === 'Shot') {
-            console.log(resArr[i])
+            // console.log('*********************')            
+            // console.log('period :', resArr[i].about.period)
+            // console.log(resArr[i].coordinates)
             let period = resArr[i].about.period
             let periodTime = resArr[i].about.periodTime
             let teamId = resArr[i].team.id
             let team = resArr[i].team.name
             let player = resArr[i].players[0].player.fullName
             let playerId = resArr[i].players[0].player.id 
-            let coordinates = convertCoordinates(resArr[i].coordinates)
-
+            let coordinates = convertCoordinates(resArr[i].coordinates, resArr[i].about.period)
+            // console.log(resArr[i].coordinates)
+            // console.log('*********************')
             if(resArr[i].team.id === gameData.home.id) {
                 shotDataHome.push({ period, periodTime, teamId, team, player, playerId, coordinates })
             } else {
@@ -73,7 +67,7 @@ let getAllShots = (gameId) => {
 .then(shotData => {
     console.log('***********')
     // console.log('***********home', shotDataHome)
-    // console.log('***********away', shotDataAway)
+    console.log('***********away', shotDataAway)
   
 })
 }
