@@ -63,10 +63,9 @@ let getAllShots = (gameId) => {
     }
 })
 .then(shotData => {
-    console.log('***********')
+    // console.log('***********')
     console.log('***********home', shotDataHome)
-    console.log('***********away', shotDataAway)
-  
+    // console.log('***********away', shotDataAway)
 })
 }
 
