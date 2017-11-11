@@ -39,6 +39,7 @@ let getAllShots = (gameId) => {
         return res
     })
     .then(res =>  {
+    resArr = res.liveData.plays.allPlays
     for(let i = 0; i < resArr.length; i++) {
         if(resArr[i].result.event === 'Shot') {
             // console.log('*********************')            
@@ -58,15 +59,12 @@ let getAllShots = (gameId) => {
             } else {
                 shotDataAway.push({ period, periodTime, teamId, team, player, playerId, coordinates })
             }
-        }
-        
+        }       
     }
-    
-    return shotData
 })
 .then(shotData => {
     console.log('***********')
-    // console.log('***********home', shotDataHome)
+    console.log('***********home', shotDataHome)
     console.log('***********away', shotDataAway)
   
 })
