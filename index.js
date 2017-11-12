@@ -2,7 +2,6 @@ const rp = require('request-promise');
 const express = require('express');
 
 const app = express();
-// Ranger game: 2017020001
 
 let gameData = {home:{},away:{}};
 let shotDataHome = [];
@@ -42,9 +41,6 @@ let getAllShots = (gameId) => {
     resArr = res.liveData.plays.allPlays
     for(let i = 0; i < resArr.length; i++) {
         if(resArr[i].result.event === 'Shot') {
-            // console.log('*********************')            
-            // console.log('period :', resArr[i].about.period)
-            // console.log(resArr[i].coordinates)
             let period = resArr[i].about.period
             let periodTime = resArr[i].about.periodTime
             let teamId = resArr[i].team.id
@@ -52,8 +48,6 @@ let getAllShots = (gameId) => {
             let player = resArr[i].players[0].player.fullName
             let playerId = resArr[i].players[0].player.id 
             let coordinates = convertCoordinates(resArr[i].coordinates, resArr[i].about.period)
-            // console.log(resArr[i].coordinates)
-            // console.log('*********************')
             if(resArr[i].team.id === gameData.home.id) {
                 shotDataHome.push({ period, periodTime, teamId, team, player, playerId, coordinates })
             } else {
@@ -63,17 +57,16 @@ let getAllShots = (gameId) => {
     }
 })
 .then(shotData => {
-    // console.log('***********')
-    console.log('***********home', shotDataHome)
+    console.log('***********')
+    // console.log('***********home', shotDataHome)
     // console.log('***********away', shotDataAway)
 })
 }
 
 getAllShots(gameId);
 
-app.get('/', (req, res, next) => {
-  res.send('hello')
-})
+app.use(express.static('public'))
+
 app.listen(3000, () => {
   console.log('app listening on 3000')
 })
