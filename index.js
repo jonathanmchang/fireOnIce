@@ -1,5 +1,6 @@
 const rp = require('request-promise');
 const express = require('express');
+const d3 = require('d3');
 
 const app = express();
 
