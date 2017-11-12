@@ -57,13 +57,138 @@ let getAllShots = (gameId) => {
     }
 })
 .then(shotData => {
-    console.log('***********')
-    // console.log('***********home', shotDataHome)
-    // console.log('***********away', shotDataAway)
+    console.log('running*******?')
 })
 }
 
 getAllShots(gameId);
+
+// <------------------------------d3stuff--------------------------------->
+
+// const w = 200*2
+// const h = 84*2
+// var rinkArrHome = [];;
+// var rinkArrAway = [];;
+
+// // Seed Rink Arr
+// for (let i = 0; i < 25; i++) {
+//     for (let j = 0; j < 21; j++) {
+//       rinkArrHome.push([i*8, j*8, 0])
+//     }
+//   }
+//   for (let i = 25; i < 50; i++) {
+//     for (let j = 0; j < 21; j++) {
+//       rinkArrAway.push([i*8, j*8, 0])
+//     }
+//   }
+  
+//   function incrementShotHome(x, y) {
+//     x=x*2
+//     y=y*2
+//     console.log(x,y)
+//     for (let i = 0; i < rinkArrHome.length; i++) {
+//       if (x >= rinkArrHome[i][0] && x < (rinkArrHome[i][0]+8)) {
+//         if (y >= rinkArrHome[i][1] && y < (rinkArrHome[i][1]+8)){
+//           rinkArrHome[i][2]++
+//         }
+//       }
+//     }
+//   }
+  
+//   function incrementShotAway(x, y) {
+//     x=x*2
+//     y=y*2
+//     console.log(x,y)
+//     for (let i = 0; i < rinkArrAway.length; i++) {
+//       if (x >= rinkArrAway[i][0] && x < (rinkArrAway[i][0]+8)) {
+//         if (y >= rinkArrAway[i][1] && y < (rinkArrAway[i][1]+8)){
+//           rinkArrAway[i][2]++
+//         }
+//       }
+//     }
+//   }
+  
+  
+//   for (let i = 0; i < shotDataHome.length; i++) {
+//     // console.log('***', shotData[i].coordinates.x)
+//     incrementShotHome(shotDataHome[i].coordinates.x, shotDataHome[i].coordinates.y)
+//   }
+  
+//   for (let i = 0; i < shotDataAway.length; i++) {
+//     incrementShotAway(shotDataAway[i].coordinates.x, shotDataAway[i].coordinates.y)
+//   }
+  
+  
+// //   console.log(rinkArrHome, rinkArrAway)
+  
+//   // const itemSize = 8
+//   // const cellSize = itemSize -.5
+//   const cellSize = 8
+  
+  
+//   // const cellPadding = 1;
+//   let svg = d3.select('body')
+//     .append('svg')
+//     .attr('width', w+10)
+//     .attr('height', h+10)
+  
+//   let colorScaleHome = d3.scaleLinear()
+//     .domain([0,4])
+//     .range(['white', 'red'])
+  
+//   let colorScaleAway = d3.scaleLinear()
+//     .domain([0,4])
+//     .range(['white', 'blue'])
+  
+//   var layer = svg.append('g');
+    
+//   let heatCellsHome = svg.selectAll('rect')
+//   .data(rinkArrHome)
+//   .enter()
+//   // .append('g')
+//   .append('rect')
+//   .attr('rx', 6)
+//   .attr('ry', 6)
+//   .attr('x', (d) => d[0])
+//   .attr('y', (d)=> d[1] )      
+//   .attr('width', cellSize)
+//   .attr('height', cellSize)
+//   .attr('fill', (d) => colorScaleHome(d[2]))
+//   .attr('opacity', .8)  
+  
+//   let heatCellsAway = layer.selectAll('rect')
+//   .data(rinkArrAway)
+//   .enter()
+//   // .append('g')
+//   .append('rect')
+//   .attr('rx', 6)
+//   .attr('ry', 6)
+//   .attr('x', (d) => d[0])
+//   .attr('y', (d)=> d[1] )      
+//   .attr('width', cellSize)
+//   .attr('height', cellSize)
+//   .attr('fill', (d) => colorScaleAway(d[2]))
+//   .attr('opacity', .8)  
+  
+//   const bordercolor = 'black'
+//   const border = 1
+//   const borderPath = svg.append("rect")
+//   .attr('rx', 45)
+//   .attr('ry', 45)
+//   .attr("x", 0)
+//   .attr("y", 0)
+//   .attr("height", h)
+//   .attr("width", w)
+//   .style("stroke", bordercolor)
+//   .style("fill", "none")
+//   .style("stroke-width", border);
+
+
+
+
+
+
+
 
 app.use(express.static('public'))
 
